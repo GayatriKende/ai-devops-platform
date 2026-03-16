@@ -3,6 +3,9 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "gayatrik2003/devops-ai"
+        CONTAINER_NAME = "devops-${BUILD_NUMBER}"  // Unique container name per build
+        HOST_PORT = "5000"
+        CONTAINER_PORT = "5000"
     }
 
     stages {
@@ -27,13 +30,12 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t gayatrik2003/devops-ai ."
+                sh "docker build -t ${DOCKER_IMAGE}:latest ."
             }
         }
 
         stage('Docker Login') {
             steps {
-                // Replace 'dockerhub-creds' with your Jenkins credentials ID
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
                 }
@@ -42,17 +44,19 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                sh "docker push gayatrik2003/devops-ai"
+                sh "docker push ${DOCKER_IMAGE}:latest"
             }
         }
 
         stage('Deploy Container') {
             steps {
-                // Stops old container (if exists) and runs new one
                 sh """
-                docker stop devops-ai || true
-                docker rm devops-ai || true
-                docker run -d -p 5000:5000 --name devops-${BUILD_NUMBER} gayatrik2003/devops-ai:latest
+                # Stop and remove old containers matching the base name
+                docker ps -a --filter "name=devops" --format "{{.Names}}" | xargs -r docker stop
+                docker ps -a --filter "name=devops" --format "{{.Names}}" | xargs -r docker rm
+
+                # Run new container with unique build number
+                docker run -d -p ${HOST_PORT}:${CONTAINER_PORT} --name ${CONTAINER_NAME} ${DOCKER_IMAGE}:latest
                 """
             }
         }
@@ -61,7 +65,7 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline completed successfully!"
+            echo "Pipeline completed successfully! Deployed container: ${CONTAINER_NAME}"
         }
         failure {
             echo "Pipeline failed! Check the logs."
