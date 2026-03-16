@@ -52,7 +52,7 @@ pipeline {
                 sh """
                 docker stop devops-ai || true
                 docker rm devops-ai || true
-                docker run -d -p 5000:5000 --name devops gayatrik2003/devops-ai
+                docker run -d -p 5000:5000 --name devops-${BUILD_NUMBER} gayatrik2003/devops-ai:latest
                 """
             }
         }
