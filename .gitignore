@@ -1,0 +1,119 @@
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# -----------------------------
+# Environment Variables
+# -----------------------------
+.env
+.env.*
+*.env
+
+# -----------------------------
+# Logs
+# -----------------------------
+*.log
+logs/
+*.out
+*.err
+
+# -----------------------------
+# OS Files
+# -----------------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# IDE / Editor
+# -----------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# -----------------------------
+# Node.js
+# -----------------------------
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# -----------------------------
+# Docker
+# -----------------------------
+*.tar
+docker-compose.override.yml
+
+# -----------------------------
+# Terraform
+# -----------------------------
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# -----------------------------
+# Kubernetes
+# -----------------------------
+*.kubeconfig
+
+# -----------------------------
+# Jenkins
+# -----------------------------
+jenkins_home/
+*.jenkins
+
+# -----------------------------
+# Testing / Coverage
+# -----------------------------
+.coverage
+htmlcov/
+.pytest_cache/
+
+# -----------------------------
+# Temporary Files
+# -----------------------------
+tmp/
+temp/
+*.tmp
+
+# -----------------------------
+# Secrets / Keys
+# -----------------------------
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# -----------------------------
+# Database
+# -----------------------------
+*.db
+*.sqlite3
+*.pem
+.env
