@@ -1,14 +1,6 @@
 pipeline {
     agent any
 
-    stages {
-
-        stage('Clone Code') {
-            steps {
-                git 'https://github.com/GayatriKende/ai-devops-platform.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh 'pip install -r requirements.txt'
