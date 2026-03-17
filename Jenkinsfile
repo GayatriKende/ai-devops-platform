@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "gayatrik2003/devops-ai"
-        CONTAINER_NAME = "devops-${BUILD_NUMBER}"  // Unique container name per build
+        CONTAINER_NAME = "devops-${BUILD_NUMBER}" 
         HOST_PORT = "5000"
         CONTAINER_PORT = "5000"
     }
@@ -51,11 +51,11 @@ pipeline {
         stage('Deploy Container') {
             steps {
                 sh """
-                # Stop and remove old containers matching the base name
+                
                 docker ps -a --filter "name=devops" --format "{{.Names}}" | xargs -r docker stop
                 docker ps -a --filter "name=devops" --format "{{.Names}}" | xargs -r docker rm
 
-                # Run new container with unique build number
+                
                 docker run -d -p ${HOST_PORT}:${CONTAINER_PORT} --name ${CONTAINER_NAME} ${DOCKER_IMAGE}:latest
                 """
             }
